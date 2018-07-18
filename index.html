@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<title>百度一下，你就知道</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			
+		}
+		.header{
+			width: 100%;
+			height: 30px;
+			border-bottom: 1px solid #ccc;
+		}
+		.header-left{
+			float: left;
+		}
+		.header-right ul{
+			padding-right: 10px;
+		}
+		.header-right li{
+
+			font-size: 13px;
+			float: right;
+			width: 55px;
+			list-style-type: none;
+			text-decoration: underline;
+			line-height: 30px;
+		}
+		.header-right a{
+			color: #000;
+		}
+		.header-right a:hover{
+			color:blue;
+		}
+		.main{
+			width: 100%;
+			height: 800px;
+			text-align: center;
+			padding-top: 165px;
+		}
+		.logo{
+			cursor: pointer;
+		}
+		.logo:hover{
+
+		}
+		.search{
+			width: 640px;
+			height: 36px;
+			margin: 20px auto;
+		}
+		.search-box{
+			width: 538px;
+			height: 34px;
+			float: left;
+			border: 1px solid #ccc;
+		}
+		.search-button{
+			width: 100px;
+			height: 36px;
+			background-color: #3385FF;
+			float: right;
+			color: #fff;
+			line-height: 36px;
+			font-size: 14px;
+			user-select: none;
+			border: none;
+		}
+		.search-input{
+			width: 520px;
+			height: 24px;
+			margin-top: 4px;
+			border: none;
+			outline: none;
+			font-size: 16px;
+		}
+		.search-button:hover{
+			box-shadow: 1px 1px 1px #888;
+			cursor: pointer;
+			opacity: 0.9;
+		}
+		.tooltip-box {
+            display: block;
+            background: #fff;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            
+            color: #333;
+            font-size: 12px;
+            overflow: auto;
+        }
+        .tooltip-box p{
+        	display: inline-block;
+        	line-height: 25px;
+        	padding-left: 10px;
+        }
+        .tooltip-box p:hover{
+        	display: block;
+        	background: #3385FF;
+        	color: #fff;
+        	cursor: pointer;
+        }
+	</style>
+</head>
+<body>
+	<div class="header">
+		<div class="header-left"><iframe width="300" scrolling="no" height="25" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=10&color=%23000000&icon=5&site=13" style="padding-left: 10px;padding-top: 3px;"></iframe></div>
+		<div class="header-right">
+			<ul>
+				<li class="more">更多设置</li>
+				<li><a class="tooltip" id="tooltip1">设置</a></li>
+				<li><a href="">登录</a></li>
+				<li><a href="http://xueshu.baidu.com/"><b>学术</b></a></li>
+				<li><a href="https://tieba.baidu.com/index.html"><b>贴吧</b></a></li>
+				<li><a href="http://v.baidu.com/"><b>视频</b></a></li>
+				<li><a href="https://map.baidu.com/"><b>地图</b></a></li>
+				<li><a href="https://www.hao123.com/" class="tooltip" id="tooltip3"><b>hao123</b></a></li>
+				<li><a href="https://news.baidu.com" class="tooltip" id="tooltip2"><b>新闻</b></a></li>
+			</ul>
+		</div>
+	</div><!--header结束-->
+	<div class="main">
+		<img src="images/baidu.jpg" width="270px" height="129px" class="logo" title="点击一下，了解更多">
+		<div class="search">
+			<form action="http://www.baidu.com/baidu" target="_blank">
+				<div class="search-box">
+					<input type=text name=word size=40 class="search-input" autofocus="true">
+				</div>
+				<div class="search-button">
+					<input type="submit" value="百度一下" class="search-button">
+				</div>
+				
+			</form>
+
+		</div>
+	</div><!--main结束-->
+<script type="text/javascript">
+	var className = 'tooltip-box';
+
+	var isIE = navigator.userAgent.indexOf('MSIE') > -1;
+
+	function showTooltip(obj, id, html, width, height) {
+        if (document.getElementById(id) == null) {
+
+            var tooltipBox;
+            tooltipBox = document.createElement('div');
+            tooltipBox.className = className;
+            tooltipBox.id = id;
+            tooltipBox.innerHTML = html;
+
+            obj.appendChild(tooltipBox);
+
+            tooltipBox.style.width = 65+'px';
+            tooltipBox.style.height = height ? height + 'px' : 'auto';
+
+            if (!width && isIE) {
+                tooltipBox.style.width = tooltipBox.offsetWidth;
+            }
+
+            tooltipBox.style.position = "absolute";
+            tooltipBox.style.display = "block";
+
+            var left = obj.offsetLeft-20;
+            var top = obj.offsetTop + 15;
+
+            if (left + tooltipBox.offsetWidth > document.body.clientWidth) {
+                var demoLeft = document.getElementById("demo").offsetLeft;
+                left = document.body.clientWidth - tooltipBox.offsetWidth - demoLeft;
+                if (left < 0) left = 0;
+            }
+
+            tooltipBox.style.left = left + 'px';
+            tooltipBox.style.top = top + 'px';
+
+            obj.onmouseleave = function () {
+                setTimeout(function () {
+                    document.getElementById(id).style.display = "none";
+                }, 100);
+            };
+
+        } else {
+            document.getElementById(id).style.display = "block";
+        }
+    }
+
+    var t1 = document.getElementById("tooltip1");
+ 
+    t1.onmouseenter = function () {
+        showTooltip(this, "t1", '<p>搜索设置</p><p>高级搜索</p><p>开启测试</p><p>搜索历史</p>', 100);
+    };
+	
+</script>
+</body>
+</html>
